@@ -1,0 +1,46 @@
+# Android / Gradle
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aar
+*.class
+*.lock
+**/build/
+**/generated/
+**/outputs/
+**/tmp/
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+.mvk/
+.venv/
+venv/
+
+# Kotlin
+.mvk/
+
+# macOS
+*.DS_Store
+
+# Logs
+*.log
+
+# Keystore
+*.jks
+*.keystore
+
+# CI
+/.github/
+/.circleci/
+
+# Local configuration
+local.properties
