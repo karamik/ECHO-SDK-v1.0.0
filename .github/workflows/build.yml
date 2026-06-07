@@ -1,0 +1,51 @@
+name: Build and Release ECHO SDK
+
+on:
+  push:
+    branches: [ main, master ]
+    tags:
+      - 'v*'             # запуск по тегам вида v1.0.0, v2.0, etc.
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build echo-sdk release AAR
+        run: ./gradlew :echo-sdk:assembleRelease
+
+      - name: Upload AAR artifact (for PR/push)
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-sdk-release
+          path: echo-sdk/build/outputs/aar/echo-sdk-release.aar
+          retention-days: 30
+
+      - name: Create Release and Upload AAR (on tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: echo-sdk/build/outputs/aar/echo-sdk-release.aar
+          generate_release_notes: true
+          name: "ECHO SDK ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
