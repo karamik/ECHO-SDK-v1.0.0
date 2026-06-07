@@ -108,9 +108,6 @@ echoClient.registerListener(object : EchoMessageListener {
 
 ## 🔥 Tough Technical Questions & Answers
 
-> *The TON Core Devs and Telegram engineers are hardcore pragmatists. They will dig into the physical limits of radio channels, Android internals, and cryptography. Here are the 8 most challenging questions they will ask – and our ready, battle‑tested answers.*
-
-### Q1: Battery Drain and Background Execution (Doze Mode)
 
 **Core Devs:** *“Always‑on Wi‑Fi scanning, BLE sniffing, and UDP broadcasts will kill a smartphone battery in 2–3 hours. Moreover, since Android 13/14, the OS aggressively kills background services via Doze Mode. How does your SDK survive in the background, and what is its real current draw?”*
 
